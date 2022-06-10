@@ -9,8 +9,6 @@ import {selectEvent} from "../store/slices/event/selectors";
 import {IEvent} from "../store/slices/event/types";
 import {selectAllAuth} from "../store/slices/auth/selectors";
 
-
-
 const Event: React.FC = () => {
 
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -32,7 +30,7 @@ const Event: React.FC = () => {
       <Layout>
           <EventCalendar events={events}/>
           <Row justify='center'>
-              <Button onClick={() => setModalVisible(true)}>Добавить событие</Button>
+              <Button type='primary' onClick={() => setModalVisible(true)}>Добавить событие</Button>
           </Row>
           <Modal
             title='Добавить событие'

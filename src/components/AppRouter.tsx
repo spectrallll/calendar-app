@@ -8,13 +8,11 @@ const AppRouter = () => {
     const isAuth = useSelector(selectAuth);
     return (
         isAuth ?
-            // @ts-ignore
             <Routes>
                 {privateRoutes.map(route => <Route path={route.path} element={<route.component />} key={route.path}/>)}
                 <Route path='*' element={<Navigate to={'/'} />}/>
             </Routes>
             :
-            // @ts-ignore
             <Routes>
                 {publicRoutes.map(route => <Route path={route.path} element={<route.component />} key={route.path}/>)}
                 <Route path='*' element={<Navigate to={'/login'} />}/>

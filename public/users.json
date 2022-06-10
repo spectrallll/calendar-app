@@ -12,11 +12,11 @@
     "password": "123"
   },
   {
-    "username": "hello",
-    "password": "world"
+    "username": "test",
+    "password": "123"
   },
   {
-    "username": "world",
-    "password": "hello"
+    "username": "name",
+    "password": "123"
   }
 ]

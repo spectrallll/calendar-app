@@ -29,7 +29,8 @@ export const fetchEvents = createAsyncThunk<IEvent[], string>(
     async (username) => {
         const events = localStorage.getItem('events') || '[]';
         const json = JSON.parse(events) as IEvent[];
-        const currentUserEvents = json.filter(ev => ev.author === username || ev.guest);
+        const currentUserEvents = json.filter(ev => ev.author === username || ev.guest === username);
+        // console.log(currentUserEvents);
         return currentUserEvents;
     }
 )
