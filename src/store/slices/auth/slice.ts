@@ -1,11 +1,11 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AuthState, IUser} from "./types";
+import {AuthState, IUser, Status} from "./types";
+import {login} from "./asyncAction";
 
 const initialState: AuthState = {
     isAuth: false,
     user: {} as IUser,
-    isLoading: false,
-    error: ''
+    status: Status.NOTHING
 }
 
 const authSlice = createSlice({
@@ -20,8 +20,20 @@ const authSlice = createSlice({
         },
 
     },
-    extraReducers: builder => {
+    extraReducers: (builder) => {
+        builder.addCase(login.pending, (state, action) => {
+            state.status = Status.LOADING
+        });
 
+        builder.addCase(login.fulfilled, (state, action: PayloadAction<IUser>) => {
+                state.user = action.payload;
+                state.status = Status.SUCCESS
+                state.isAuth = true;
+        });
+
+        builder.addCase(login.rejected, (state, action) => {
+            state.status = Status.ERROR;
+        })
     }
 })
 

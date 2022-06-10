@@ -1,9 +1,14 @@
+export enum Status {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error',
+    NOTHING = ''
+}
 
 export interface AuthState {
     isAuth: boolean,
     user: IUser,
-    isLoading: boolean,
-    error: string
+    status: Status
 }
 
 export interface IUser {
