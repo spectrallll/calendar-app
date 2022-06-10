@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthState, IUser, Status} from "./types";
-import {login} from "./asyncAction";
+import {login, logout} from "./asyncAction";
 
 const initialState: AuthState = {
     isAuth: false,
@@ -33,9 +33,23 @@ const authSlice = createSlice({
 
         builder.addCase(login.rejected, (state, action) => {
             state.status = Status.ERROR;
-        })
+        });
+
+        builder.addCase(logout.pending, (state, action) => {
+            state.status = Status.LOADING;
+        });
+
+        builder.addCase(logout.fulfilled, (state, action) => {
+            state.status = Status.SUCCESS;
+            state.user = {} as IUser;
+            state.isAuth = false;
+        });
+
+        builder.addCase(logout.rejected, (state, action) => {
+            state.status = Status.ERROR;
+        });
     }
 })
 
-export const {setAuth} = authSlice.actions;
+export const {setAuth, setUser} = authSlice.actions;
 export default authSlice.reducer;

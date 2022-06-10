@@ -4,13 +4,15 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import { RoutesNames } from "../router";
 import {useSelector} from "react-redux";
-import {selectAuth} from "../store/slices/auth/selectors";
+import {selectAllAuth, selectAuth} from "../store/slices/auth/selectors";
+import {useAppDispatch} from "../store/store";
+import {logout} from "../store/slices/auth/asyncAction";
 
 
 const Navbar: React.FC = () => {
-
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const isAuth = useSelector(selectAuth);
+    const {isAuth, user} = useSelector(selectAllAuth);
 
     return (
       <Header>
@@ -19,13 +21,13 @@ const Navbar: React.FC = () => {
               ?
                   <Menu theme="dark" mode="horizontal" selectable={false}>
                       <div style={{color: 'white'}}>
-                          Pavel
+                          {user.username}
                       </div>
-                      <Menu.Item onClick={() => console.log('Hello world')} key={1}>Выйти</Menu.Item>
+                      <Menu.Item onClick={() => dispatch(logout())} key={1}>Выйти</Menu.Item>
                   </Menu>
               :
                   <Menu theme="dark" mode="horizontal" selectable={false}>
-                      <Menu.Item onClick={() => navigate(RoutesNames.LOGIN)} key={1}>Логин</Menu.Item>
+                      <Menu.Item  key={1}>Логин</Menu.Item>
                   </Menu>}
 
           </Row>
